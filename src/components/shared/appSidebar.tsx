@@ -12,8 +12,10 @@ import {
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/reducer/auth/authSlice';
 
 const items = [
   {
@@ -28,10 +30,17 @@ const items = [
 
 export function AppSidebar() {
   const path = usePathname();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/login');
+  };
 
   return (
     <Sidebar className="p-4">
-      <span className="absolute -left-[300px] -top-[350px] z-0 size-4 h-[600px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-australian-mint-300/80 from-0% to-transparent to-70%" />
+      <span className="absolute -left-[320px] -top-[380px] z-0 size-4 h-[600px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-australian-mint-300 from-0% to-transparent to-70%" />
       <SidebarHeader className="z-10 mb-10">
         <Image
           src="/logo.png"
@@ -68,6 +77,13 @@ export function AppSidebar() {
           </span>
           <p>Admin</p>
         </Link>
+        <Button
+          onClick={handleLogout}
+          className="m-auto mb-8 w-full"
+          variant="ghost"
+        >
+          Logout
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );

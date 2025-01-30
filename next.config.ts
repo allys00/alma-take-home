@@ -5,3 +5,9 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+export const dynamic = 'force-static'
+
+export async function POST() {
+
+  return Response.json({ oi: [] })
+}

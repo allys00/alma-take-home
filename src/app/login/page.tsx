@@ -8,30 +8,27 @@ import { LoginSchema, loginSchema } from './login.definitions';
 import { FormErrorMessage } from '@/components/shared/formErrorMessage';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { login } from '@/reducer/auth/authSlice';
+import { doLogin } from '@/service/auth.api';
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginSchema>({
     resolver: yupResolver(loginSchema),
   });
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
-    // const response = await fetch('/api/auth/login', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ data }),
-    // });
+    const { token } = await doLogin(data);
 
-    // if (response.ok) {
-    router.push('/dashboard');
-    // } else {
-    //   // Handle errors
-    // }
+    dispatch(login(token));
+    router.push('/leads');
   };
 
   return (
@@ -56,8 +53,12 @@ export default function Login() {
           {...register('password')}
         />
         <FormErrorMessage message={errors.password?.message} />
-        <Button className="m-auto mb-8 w-full" variant="default">
-          Submit
+        <Button
+          disabled={isSubmitting}
+          className="m-auto mb-8 w-full"
+          variant="default"
+        >
+          Login
         </Button>
       </form>
     </main>

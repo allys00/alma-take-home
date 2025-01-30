@@ -15,7 +15,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import Image from 'next/image';
 import { BsFillInfoSquareFill } from 'react-icons/bs';
-import { FaHeart } from 'react-icons/fa';
+import { FaFileUpload, FaHeart } from 'react-icons/fa';
 import { IoDiceSharp } from 'react-icons/io5';
 import assessmentSchema, {
   AssessmentSchema,
@@ -24,6 +24,10 @@ import assessmentSchema, {
 import { FormErrorMessage } from '@/components/shared/formErrorMessage';
 import SectionTitle from './components/sectionTitle';
 import { SubmittedMessage } from './components/submittedMessage';
+import { useEffect, useState } from 'react';
+import { postLeads } from '@/service/leads.api';
+import { uploadFile } from '@/service/files.api';
+import { getCountries } from '@/service/countries.api';
 
 export default function Assement() {
   const {
@@ -36,8 +40,21 @@ export default function Assement() {
     resolver: yupResolver(assessmentSchema),
   });
 
-  const onSubmit: SubmitHandler<AssessmentSchema> = (data) => {
-    console.log(data);
+  const [countries, setCountries] = useState([]);
+  const [file, setFile] = useState<File>();
+
+  useEffect(() => {
+    getCountries().then(({ countries }) => setCountries(countries));
+  }, []);
+
+  const onSubmit: SubmitHandler<AssessmentSchema> = async (
+    data: AssessmentSchema,
+  ) => {
+    if (file) {
+      await uploadFile(file);
+    }
+
+    await postLeads(data);
   };
 
   if (isSubmitted) {
@@ -102,7 +119,7 @@ export default function Assement() {
                   <SelectValue placeholder="Country of Citizenship" />
                 </SelectTrigger>
                 <SelectContent>
-                  {['Brazil', 'Argentina', 'Japan'].map((country: string) => (
+                  {countries.map((country: string) => (
                     <SelectItem key={country} value={country}>
                       {country}
                     </SelectItem>
@@ -152,6 +169,15 @@ export default function Assement() {
 
             <FormErrorMessage message={errors.visaCategories?.message} />
           </div>
+
+          <SectionTitle icon={FaFileUpload} title="Upload CV" />
+          <Input
+            onChange={(event) => {
+              setFile(event.target.files?.[0]);
+            }}
+            id="cv"
+            type="file"
+          />
 
           {/* Description */}
           <SectionTitle icon={FaHeart} title="How can we help you?" />
