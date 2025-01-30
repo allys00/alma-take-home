@@ -41,9 +41,9 @@ This will start the development server and you can view the project in your brow
 
 ## Routes
 
-# /assessments 
-# /login (email:admin@admin.com, password:admin)
-# /leads (Private)
+### /assessments 
+### /login (email:admin@admin.com, password:admin)
+### /leads (Private)
 
 
 ## Considerations
