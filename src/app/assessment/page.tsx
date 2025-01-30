@@ -63,13 +63,13 @@ export default function Assement() {
 
   return (
     <div className="row-start-2 flex flex-col items-center gap-8">
-      <header className="flex h-80 w-screen flex-col items-start justify-center bg-australian-mint-200">
+      <header className="flex h-80 w-full flex-col items-start justify-center bg-australian-mint-200">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-0 sm:text-left">
           <Image
             src="/logo.png"
             alt="logo"
             height={35}
-            width={70}
+            width={96}
             className="mb-8"
           />
           <h2 className="mb-12 text-3xl font-extrabold leading-10 md:text-5xl md:leading-[60px]">

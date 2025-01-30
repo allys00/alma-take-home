@@ -14,7 +14,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/alma-take-home.git
+    git clone https://github.com/allys00/alma-take-home.git
     ```
 
 2. Navigate to the project directory:
@@ -38,3 +38,26 @@ npm dev
 ```
 
 This will start the development server and you can view the project in your browser at `http://localhost:3000`.
+
+## Routes
+
+# /assessments 
+# /login (email:admin@admin.com, password:admin)
+# /leads (Private)
+
+
+## Considerations
+
+# Typescript: I always like to use TypeScript for projects, as it helps a lot with maintenance, productivity and fewer bugs.
+
+# Redux: I used redux because it was requested, but for something simple like this, I would only use it to save the user and some details, otherwise I would use react query to maintain the data.
+
+# Shadcn: Very good library for components as it has native usability and is very practical to use.
+
+# React-Form-Hooks and yup together for forms, helps a lot in validation and error feedback
+
+# Authentication: with more time I would have used the authentication suggested by next which is session cookies + middleware, but it takes a little longer to implement and as there was little time, I used something more practical.
+
+# UI: base components are in lib/ui, and more robust or specific components are in lib.shared.
+
+# Tailwind: Tailwind is a very good lib for maintaining standardized styling and productivity.

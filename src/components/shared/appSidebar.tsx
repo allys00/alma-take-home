@@ -46,7 +46,7 @@ export function AppSidebar() {
           src="/logo.png"
           alt="logo"
           height={35}
-          width={120}
+          width={96}
           className="m-auto mb-8"
         />
       </SidebarHeader>

@@ -27,7 +27,7 @@ export default function LeadsPage(): React.ReactNode {
   const [statusValue, setStatusValue] = useState('');
 
   useEffect(() => {
-    getLeads().then((leads) => dispatch(setLeads(leads)));
+    getLeads().then(({ leads }) => dispatch(setLeads(leads)));
   }, []);
 
   const leadsByStatus = useMemo(

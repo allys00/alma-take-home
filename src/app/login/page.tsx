@@ -41,7 +41,7 @@ export default function Login() {
           src="/logo.png"
           alt="logo"
           height={35}
-          width={100}
+          width={96}
           className="mb-8"
         />
         <Input type="email" placeholder="Email" {...register('email')} />
